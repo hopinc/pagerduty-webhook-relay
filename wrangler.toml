@@ -1,0 +1,9 @@
+type = "webpack"
+webpack_config = "webpack.config.js"
+
+zone_id = "b11c9e760ae4e492f874ac42cd05ca5a"
+account_id = "3e4e267fb0f575f02c3d6ecd0c65f3cd"
+
+name = "pd-hop"
+routes = ["pd-hop.dstn.llc/*"]
+workers_dev = false
