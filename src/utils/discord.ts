@@ -41,8 +41,11 @@ export async function sendPagerDutyAlert(alert: PagerDutyEvent) {
     { name: 'Service', value: `[${alert.data.service.summary}](${alert.data.service.html_url})`, inline: true },
   ];
 
-  if (alert.event_type == 'incident.acknowledged') {
-    embed.fields = [...(embed.fields ? embed.fields : []), { name: 'Acknowledged by', value: `[${alert.agent.summary}](${alert.agent.html_url})` }];
+  if (['incident.acknowledged', 'incident.resolved'].includes(alert.event_type)) {
+    embed.fields = [
+      ...(embed.fields ? embed.fields : []),
+      { name: `${alert.event_type == 'incident.acknowledged' ? 'Acknowledged' : 'Resolved'} by`, value: `[${alert.agent.summary}](${alert.agent.html_url})` },
+    ];
   }
 
   // Do some parsing for uptime kuma alerts
