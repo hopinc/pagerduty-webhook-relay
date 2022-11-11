@@ -51,7 +51,7 @@ export async function sendPagerDutyAlert(alert: PagerDutyEvent) {
   // Do some parsing for uptime kuma alerts
   const matches = UPTIME_KUMA_REGEX.exec(alert.data.title);
   if (alert.data.title.includes('Uptime Kuma Monitor') && matches) {
-    if (alert.event_type != 'incident.resolved')
+    if (!['incident.acknowledged', 'incident.resolved'].includes(alert.event_type))
       embed.fields = [
         ...(embed.fields ? embed.fields : []),
         { name: '_ _', value: '_ _' },
